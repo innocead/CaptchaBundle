@@ -1,5 +1,5 @@
 {
-    "name": "innocead/captcha",
+    "name": "innocead/captcha-bundle",
     "type": "symfony-bundle",
     "description": "Symfony InnoceadCaptchaBundle",
     "keywords": ["captcha", "symfony2", "security", "spam"],
