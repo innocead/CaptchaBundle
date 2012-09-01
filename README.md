@@ -19,7 +19,7 @@ Installation
 Add the following to the "require" section of your `composer.json` file:
 
 ```
-    "innocead/captcha-bundle": "dev-master"
+    "innocead/captcha-bundle": "master"
 ```
 
 And update your dependencies
