@@ -1,0 +1,4 @@
+*.DS_STORE
+*.tmproj
+nbproject
+composer.lock

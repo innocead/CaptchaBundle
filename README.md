@@ -24,7 +24,7 @@ You can use the "innocead_captcha" type in your forms this way:
 ```php
 <?php
     // ...
-    $builder->add('captcha', 'innocead_captcha'); // That's all !
+    $builder->add('captcha', 'innocead_captcha');
     // ...
 ```
 
@@ -57,4 +57,4 @@ License
 
 This bundle is under the MIT license. See the complete license in the bundle:
 
-    Resources/meta/LICENSE
+See [Resources/meta/LICENSE](https://github.com/innocead/CaptchaBundle/blob/master/Resources/meta/LICENSE)
