@@ -14,7 +14,7 @@ Features include:
 Installation
 ------------
 
-[Resources/doc/configuration.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/installation.md)
+See [Resources/doc/configuration.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/installation.md)
 
 Usage
 -----
@@ -48,9 +48,8 @@ class RecoverAccount
 
 Configuration
 -------------
-See the settings in the documentation:
 
-[Resources/doc/configuration.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/configuration.md)
+See [Resources/doc/configuration.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/configuration.md)
     
 
 License
