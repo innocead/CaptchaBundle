@@ -1,0 +1,3 @@
+innocead_captcha:
+  pattern:  /captcha/{random}
+  defaults: { _controller: InnoceadCaptchaBundle:Captcha:captcha }

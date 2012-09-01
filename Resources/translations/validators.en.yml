@@ -1,0 +1,4 @@
+innocead_captcha:
+  captcha:
+    message: "The captcha is not valid"
+    alt: "Click on image to change code"

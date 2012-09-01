@@ -1,0 +1,15 @@
+services:
+    innocead_captcha:
+        class: Innocead\CaptchaBundle\Captcha
+        arguments: [ "@session" , "%innocead_captcha.config%"]            
+    innocead_captcha.form.type:
+        class: Innocead\CaptchaBundle\Form\Type\CaptchaType
+        arguments: ["%innocead_captcha.config%"]
+        tags:
+            - { name: form.type, alias: innocead_captcha }
+    innocead_captcha.validator:
+        class: Innocead\CaptchaBundle\Validator\Constraints\CaptchaValidator
+        arguments: ["@innocead_captcha"]
+        tags:
+            - { name: validator.constraint_validator, alias: innocead_captcha.validator }
+        

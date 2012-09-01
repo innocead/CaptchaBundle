@@ -1,0 +1,4 @@
+innocead_captcha:
+  captcha:
+    message: "Неверный код"
+    alt: "Кликните на картинку, чтобы сменить код"
