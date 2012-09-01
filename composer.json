@@ -23,5 +23,5 @@
             "psr-0": { "Innocead\\CaptchaBundle": "" }
         }
     },
-    "target-dir": "Innocead/CaptchaBundle",
+    "target-dir": "Innocead/CaptchaBundle"
 }
