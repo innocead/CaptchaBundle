@@ -14,15 +14,7 @@ Features include:
 Installation
 ------------
 
-***Using Composer***
-
-Add the following to the "require" section of your `composer.json` file:
-
-```
-    "innocead/captcha-bundle": "master"
-```
-
-And update your dependencies
+    Resources/doc/configuration.md
 
 Usage
 -----
