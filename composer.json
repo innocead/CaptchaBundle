@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony InnoceadCaptchaBundle",
     "keywords": ["captcha", "symfony2", "security", "spam"],
-    "homepage": "https://github.com/innocead/InnoceadCaptchaBundle",
+    "homepage": "https://github.com/innocead/CaptchaBundle",
     "license": "MIT",
 
     "authors": [
@@ -20,7 +20,7 @@
 
     "autoload": {
         "psr-0": {
-            "psr-0": { "Innocead\\CaptchaBundle": "" }
+            "Innocead\\CaptchaBundle": ""
         }
     },
     "target-dir": "Innocead/CaptchaBundle"
