@@ -19,7 +19,7 @@ Installation
 Add the following to the "require" section of your `composer.json` file:
 
 ```
-    "gregwar/captcha-bundle": "dev-master"
+    "innocead/captcha-bundle": "dev-master"
 ```
 
 And update your dependencies
