@@ -14,7 +14,7 @@ Features include:
 Installation
 ------------
 
-See [Resources/doc/configuration.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/installation.md)
+See [Resources/doc/installation.md](https://github.com/innocead/CaptchaBundle/blob/master/Resources/doc/installation.md)
 
 Usage
 -----
