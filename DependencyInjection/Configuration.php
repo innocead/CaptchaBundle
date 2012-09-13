@@ -17,12 +17,18 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('innocead_captcha', 'array');
 
+        $fonts = array(
+            'luggerbu.ttf',
+            'elephant.ttf',
+            'SCRAWL.ttf',
+            'Alanden.ttf'
+        );
+
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('width')->defaultValue(100)->end()
             ->scalarNode('height')->defaultValue(20)->end()
-
             ->scalarNode('char_max_size')->end()
             ->scalarNode('char_min_size')->end()
             ->scalarNode('char_transparent')->end()
@@ -34,10 +40,8 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('char_max_rot_angle')->end()
             ->scalarNode('chars_used')->end()
             ->arrayNode('char_fonts')
-            ->addDefaultChildrenIfNoneSet()
-            ->prototype('enum')->values(
-            array('luggerbu.ttf', 'elephant.ttf', 'SCRAWL.ttf', 'Alanden.ttf')
-        )->defaultValue('luggerbu.ttf')->end()
+                ->addDefaultChildrenIfNoneSet()
+                ->prototype('enum')->values($fonts)->defaultValue($fonts[0])->end()
             ->end()
 
             ->booleanNode('effect_greyscale')->end()
@@ -61,7 +65,8 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('flood_timer')->end()
             ->booleanNode('test_queries_flood')->end()
             ->scalarNode('max_refresh')->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }
