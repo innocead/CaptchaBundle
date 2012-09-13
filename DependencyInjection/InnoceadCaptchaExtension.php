@@ -23,7 +23,10 @@ class InnoceadCaptchaExtension extends Extension
         $container->setParameter('innocead_captcha.config', $config);
 
         $resources = $container->getParameter('twig.form.resources');
-        $container->setParameter('twig.form.resources', array_merge(array('InnoceadCaptchaBundle::captcha.html.twig'), $resources));
+        $container->setParameter(
+            'twig.form.resources',
+            array_merge(array('InnoceadCaptchaBundle::captcha.html.twig'), $resources)
+        );
     }
 
 }

@@ -1,27 +1,27 @@
 {
-    "name": "innocead/captcha-bundle",
-    "type": "symfony-bundle",
-    "description": "Symfony InnoceadCaptchaBundle",
-    "keywords": ["captcha", "symfony2", "security", "spam"],
-    "homepage": "https://github.com/innocead/CaptchaBundle",
-    "license": "MIT",
+    "name":"innocead/captcha-bundle",
+    "type":"symfony-bundle",
+    "description":"Symfony InnoceadCaptchaBundle",
+    "keywords":["captcha", "symfony2", "security", "spam"],
+    "homepage":"https://github.com/innocead/CaptchaBundle",
+    "license":"MIT",
 
-    "authors": [
+    "authors":[
         {
-            "name": "Innocead",
-            "homepage": "http://github.com/innocead"
+            "name":"Innocead",
+            "homepage":"http://github.com/innocead"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=5.3.2",
-        "symfony/framework-bundle": "2.1.*"
+    "minimum-stability":"dev",
+    "require":{
+        "php":">=5.3.2",
+        "symfony/framework-bundle":"2.1.*"
     },
 
-    "autoload": {
-        "psr-0": {
-            "Innocead\\CaptchaBundle": ""
+    "autoload":{
+        "psr-0":{
+            "Innocead\\CaptchaBundle":""
         }
     },
-    "target-dir": "Innocead/CaptchaBundle"
+    "target-dir":"Innocead/CaptchaBundle"
 }

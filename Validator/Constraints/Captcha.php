@@ -6,10 +6,11 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
- * 
+ *
  * @api
  */
-class Captcha extends Constraint {
+class Captcha extends Constraint
+{
 
     public $message = 'innocead_captcha.captcha.message';
 

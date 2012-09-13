@@ -27,7 +27,7 @@ class CaptchaValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $value = (string) $value;
+        $value = (string)$value;
 
         if (!$this->captcha->isValid($value)) {
             $this->context->addViolation($constraint->message);

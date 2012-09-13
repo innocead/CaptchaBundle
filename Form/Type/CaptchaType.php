@@ -12,9 +12,9 @@ class CaptchaType extends AbstractType
 {
     private $captchaWidth;
     private $captchaHeight;
-    
+
     public function __construct(array $captchaOptions)
-    {        
+    {
         $this->captchaWidth = $captchaOptions['width'];
         $this->captchaHeight = $captchaOptions['height'];
     }
@@ -29,10 +29,12 @@ class CaptchaType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'required' => true,
-            'attr' => array('class' => 'captcha_input')
-        ));
+        $resolver->setDefaults(
+            array(
+                'required' => true,
+                'attr' => array('class' => 'captcha_input')
+            )
+        );
     }
 
     public function getParent()

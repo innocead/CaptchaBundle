@@ -5,7 +5,8 @@ namespace Innocead\CaptchaBundle;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Response;
 
-class Captcha {
+class Captcha
+{
 
     protected $config = array();
     protected $image;
@@ -71,7 +72,7 @@ class Captcha {
             'noise_min_circles' => 0,
             'noise_max_circles' => 0,
             'noise_color' => 3,
-            'noise_on_top' => false,            
+            'noise_on_top' => false,
             'error_images_dir' => __DIR__ . '/Resources/error',
             //test
             'test_queries_flood' => false,
@@ -80,7 +81,7 @@ class Captcha {
         if (count($conf)) {
             $this->config = array_merge($this->config, $conf);
         }
-        
+
         if (true === $this->config['test_queries_flood']) {
 
             if ($this->testQueries() && $this->testLastRequest()) {
@@ -97,6 +98,7 @@ class Captcha {
                     $this->config['constructor_error_reason'] = 'Error - unknown reason';
                     $this->config['constructor_error_message'] = 'unknown';
                 }
+
                 return false;
             }
         } else {
@@ -108,6 +110,7 @@ class Captcha {
     {
         if ($this->config['constructor_test'] === false) {
             $this->generateErrorImage($this->config['constructor_error_message']);
+
             return true;
         }
 
@@ -137,7 +140,7 @@ class Captcha {
 
     public function isValid($input)
     {
-        if(!is_scalar($input)){
+        if (!is_scalar($input)) {
             return false;
         }
 
@@ -156,6 +159,7 @@ class Captcha {
             $this->session->remove('innocead.captcha.code');
             $this->session->remove('innocead.captcha.last_request');
             $this->session->remove('innocead.captcha.queries');
+
             return true;
         } else {
             return false;
@@ -294,7 +298,7 @@ class Captcha {
 
     /**
      * Randomly selects a font in the available fonts
-     * 
+     *
      * @return string The randomly selected font
      */
     private function getRandomFont()
@@ -304,7 +308,7 @@ class Captcha {
 
     /**
      * Randomly generates an angle
-     * 
+     *
      * @return string The randomly generated angle
      */
     private function getRandomLetterRotation()
@@ -322,7 +326,7 @@ class Captcha {
      * The function randomly selects characters to make the captcha
      * word. If the easy captcha is activated, it alternates
      * between vowels and consonants.
-     * 
+     *
      * @return string The randomly selected letter
      */
     private function getRandomCharacter()
@@ -333,10 +337,15 @@ class Captcha {
             if ($this->config['easy_captcha_bool'] == 1) {
                 //invert for next letter (vowel/consonant)
                 $this->config['easy_captcha_bool'] = 0;
-                return $this->config['easy_captcha_consonants']{rand(0, strlen($this->config['easy_captcha_consonants']) - 1)};
+
+                return $this->config['easy_captcha_consonants']{rand(
+                    0,
+                    strlen($this->config['easy_captcha_consonants']) - 1
+                )};
             } else {
                 //invert for next letter (vowel/consonant)
                 $this->config['easy_captcha_bool'] = 1;
+
                 return $this->config['easy_captcha_vowels']{rand(0, strlen($this->config['easy_captcha_vowels']) - 1)};
             }
         } else {
@@ -347,7 +356,7 @@ class Captcha {
 
     /**
      * Randomly selects a character size
-     * 
+     *
      * @return string The randomly selected size
      */
     private function getRandomCharacterSize()
@@ -357,7 +366,7 @@ class Captcha {
 
     /**
      * Randomly generates a vertical offset
-     * 
+     *
      * @return string The randomly generated offset
      */
     private function getRandomVerticalOffset()
@@ -368,12 +377,13 @@ class Captcha {
         } else {
             $vertical_offset = round($this->config['height'] / 1.5);
         }
+
         return $vertical_offset;
     }
 
     /**
      * Generates an image with a white background in the $temp_image class attribute
-     * 
+     *
      * @return bool True if the generation is successfull.
      */
     private function generateRawTempImage()
@@ -390,7 +400,7 @@ class Captcha {
 
     /**
      * Adds the captcha letters on the temporary image
-     * 
+     *
      * @return bool True if the adding is successfull
      */
     private function addCaptchaOnTempImage()
@@ -399,16 +409,27 @@ class Captcha {
         for ($i = 1; $i <= $this->captcha['chars']; $i++) {
             $black_ink = imagecolorallocate($this->temp_image, 0, 0, 0);
             //add letter to image
-            if (!imagettftext($this->temp_image, $this->captcha['letters'][$i]['size'], $this->captcha['letters'][$i]['rotation'], $this->captcha['letters'][$i]['x_coord'], $this->captcha['letters'][$i]['y_coord'], $black_ink, $this->captcha['letters'][$i]['font_path'], $this->captcha['letters'][$i]['char'])) {
+            if (!imagettftext(
+                $this->temp_image,
+                $this->captcha['letters'][$i]['size'],
+                $this->captcha['letters'][$i]['rotation'],
+                $this->captcha['letters'][$i]['x_coord'],
+                $this->captcha['letters'][$i]['y_coord'],
+                $black_ink,
+                $this->captcha['letters'][$i]['font_path'],
+                $this->captcha['letters'][$i]['char']
+            )
+            ) {
                 return false;
             }
         }
+
         return true;
     }
 
     /**
      * Computes the x coordinate offset
-     * 
+     *
      * @return int The x coordiante offset
      */
     private function getAdjustmentOffset()
@@ -453,7 +474,7 @@ class Captcha {
      * Selects the final captcha background. Random image if file in configuration
      *
      * In all cases, it defines also the background color.
-     * 
+     *
      * @return bool True if image correctly selected and set
      */
     private function selectBackground()
@@ -473,7 +494,11 @@ class Captcha {
         } else {
             $this->captcha['bg_img'] = '';
         }
-        $this->captcha['bg_colors'] = array('red' => $this->config['bg_red'], 'green' => $this->config['bg_green'], 'blue' => $this->config['bg_blue']);
+        $this->captcha['bg_colors'] = array(
+            'red' => $this->config['bg_red'],
+            'green' => $this->config['bg_green'],
+            'blue' => $this->config['bg_blue']
+        );
 
         if (!empty($this->captcha['bg_colors'])) {
             return true;
@@ -484,7 +509,7 @@ class Captcha {
 
     /**
      * Selects the ink type (transparent or normal)
-     * 
+     *
      * @return bool The ink type (true=alpha, false=opaque)
      */
     private function getInkType()
@@ -499,7 +524,7 @@ class Captcha {
 
     /**
      * Selects the ink colors
-     * 
+     *
      * @return array The ink colors
      */
     private function getInkColors()
@@ -514,23 +539,32 @@ class Captcha {
                 $rand_blue = rand(0, 255);
                 $random_color_sum = $rand_red + $rand_green + $rand_blue;
                 switch ($this->config['char_random_color_lvl']) {
-                    case 1 : if ($random_color_sum < 200)
-                            $ok = true; break; // very dark
-                    case 2 : if ($random_color_sum < 400)
-                            $ok = true; break; // dark
-                    case 3 : if ($random_color_sum > 500)
-                            $ok = true; break; // bright
-                    case 4 : if ($random_color_sum > 650)
-                            $ok = true; break; // very bright
-                    default : $ok = true;
+                    case 1 :
+                        if ($random_color_sum < 200) {
+                            $ok = true;
+                        }
+                        break; // very dark
+                    case 2 :
+                        if ($random_color_sum < 400)
+                            $ok = true;
+                        break; // dark
+                    case 3 :
+                        if ($random_color_sum > 500)
+                            $ok = true;
+                        break; // bright
+                    case 4 :
+                        if ($random_color_sum > 650)
+                            $ok = true;
+                        break; // very bright
+                    default :
+                        $ok = true;
                 }
-            }while ($ok == false);
+            } while ($ok == false);
 
             $ink['red'] = $rand_red;
             $ink['green'] = $rand_green;
             $ink['blue'] = $rand_blue;
-        }
-        else {
+        } else {
             $ink['red'] = $this->config['char_red'];
             $ink['green'] = $this->config['char_green'];
             $ink['blue'] = $this->config['char_blue'];
@@ -541,19 +575,26 @@ class Captcha {
 
     /**
      * Defines the captcha noise parameters
-     * 
+     *
      * @return bool Always true
      */
     private function setNoiseParameters()
     {
         switch ($this->config['noise_color']) {
-            case 1 : $rand_letter = rand(1, $this->captcha['chars']);
+            case 1 :
+                $rand_letter = rand(1, $this->captcha['chars']);
                 $this->captcha['noise_color'] = $this->captcha['letters'][$rand_letter]['ink_colors'];
                 break; //color of the writing
-            case 2 : $this->captcha['noise_color'] = $this->captcha['bg_colors'];
+            case 2 :
+                $this->captcha['noise_color'] = $this->captcha['bg_colors'];
                 break; //color of the background
             case 3 :
-            default : $this->captcha['noise_color'] = array('red' => rand(0, 255), 'green' => rand(0, 255), 'blue' => rand(0, 255));
+            default :
+                $this->captcha['noise_color'] = array(
+                    'red' => rand(0, 255),
+                    'green' => rand(0, 255),
+                    'blue' => rand(0, 255)
+                );
                 break; //random color
         }
 
@@ -566,7 +607,7 @@ class Captcha {
 
     /**
      * Generates the final captcha image with the background
-     * 
+     *
      * @return bool Always true
      */
     private function createCaptchaImageAndBackground()
@@ -584,7 +625,7 @@ class Captcha {
 
     /**
      * Adds the background image to the $image attribute
-     * 
+     *
      * @return bool Always true
      */
     private function addImageBackgroundImage()
@@ -599,7 +640,18 @@ class Captcha {
         } else {
             return false;
         }
-        imagecopyresized($this->image, $img_read, 0, 0, 0, 0, $this->config['width'], $this->config['height'], $bg_width, $bg_height);
+        imagecopyresized(
+            $this->image,
+            $img_read,
+            0,
+            0,
+            0,
+            0,
+            $this->config['width'],
+            $this->config['height'],
+            $bg_width,
+            $bg_height
+        );
         imagedestroy($img_read);
 
         return true;
@@ -607,12 +659,17 @@ class Captcha {
 
     /**
      * Adds the background color to the $image attribute
-     * 
+     *
      * @return bool Always true
      */
     private function addImageBackgroundColor()
     {
-        $bg = imagecolorallocate($this->image, $this->captcha['bg_colors']['red'], $this->captcha['bg_colors']['green'], $this->captcha['bg_colors']['blue']);
+        $bg = imagecolorallocate(
+            $this->image,
+            $this->captcha['bg_colors']['red'],
+            $this->captcha['bg_colors']['green'],
+            $this->captcha['bg_colors']['blue']
+        );
         imagefill($this->image, 0, 0, $bg);
 
         if ($this->config['bg_transparent'] && strtoupper($this->config['format']) == 'PNG') {
@@ -624,23 +681,44 @@ class Captcha {
 
     /**
      * Adds the noise to the $image attribute
-     * 
+     *
      * @return bool Always true
      */
     private function addNoiseToImage()
     {
         //add pixels
         for ($i = 1; $i <= $this->captcha['noise_px']; $i++) {
-            imagesetpixel($this->image, rand(0, $this->config['width'] - 1), rand(0, $this->config['height'] - 1), $this->getNoiseBrush());
+            imagesetpixel(
+                $this->image,
+                rand(0, $this->config['width'] - 1),
+                rand(0, $this->config['height'] - 1),
+                $this->getNoiseBrush()
+            );
         }
 
         for ($j = 1; $j <= $this->captcha['noise_lines']; $j++) {
-            imageline($this->image, rand(0, $this->config['width'] - 1), rand(0, $this->config['height'] - 1), rand(0, $this->config['width'] - 1), rand(0, $this->config['height'] - 1), $this->getNoiseBrush());
+            imageline(
+                $this->image,
+                rand(0, $this->config['width'] - 1),
+                rand(0, $this->config['height'] - 1),
+                rand(0, $this->config['width'] - 1),
+                rand(0, $this->config['height'] - 1),
+                $this->getNoiseBrush()
+            );
         }
 
         for ($k = 1; $k <= $this->captcha['noise_circles']; $k++) {
             $radius = rand(5, $this->config['width'] / 3);
-            imagearc($this->image, rand(0, $this->config['width'] - 1), rand(0, $this->config['height'] - 1), $radius, $radius, 0, 360, $this->getNoiseBrush());
+            imagearc(
+                $this->image,
+                rand(0, $this->config['width'] - 1),
+                rand(0, $this->config['height'] - 1),
+                $radius,
+                $radius,
+                0,
+                360,
+                $this->getNoiseBrush()
+            );
         }
 
         return true;
@@ -648,7 +726,7 @@ class Captcha {
 
     /**
      * Updates the captcha letters x_coord value
-     * 
+     *
      * @return bool Always true
      */
     private function updateCaptchaXCoord()
@@ -667,7 +745,7 @@ class Captcha {
 
     /**
      * Adds the actual captcha letters to the $image attribute
-     * 
+     *
      * @return bool Always true
      */
     private function addLettersToImage()
@@ -677,14 +755,34 @@ class Captcha {
             //create ink
             if ($this->captcha['letters'][$i]['ink_type']) {
                 //alpha active
-                $ink = imagecolorallocatealpha($this->image, $this->captcha['letters'][$i]['ink_colors']['red'], $this->captcha['letters'][$i]['ink_colors']['green'], $this->captcha['letters'][$i]['ink_colors']['blue'], $this->config['char_transparent']);
+                $ink = imagecolorallocatealpha(
+                    $this->image,
+                    $this->captcha['letters'][$i]['ink_colors']['red'],
+                    $this->captcha['letters'][$i]['ink_colors']['green'],
+                    $this->captcha['letters'][$i]['ink_colors']['blue'],
+                    $this->config['char_transparent']
+                );
             } else {
                 //normal/opaque ink
-                $ink = imagecolorallocatealpha($this->image, $this->captcha['letters'][$i]['ink_colors']['red'], $this->captcha['letters'][$i]['ink_colors']['green'], $this->captcha['letters'][$i]['ink_colors']['blue']);
+                $ink = imagecolorallocatealpha(
+                    $this->image,
+                    $this->captcha['letters'][$i]['ink_colors']['red'],
+                    $this->captcha['letters'][$i]['ink_colors']['green'],
+                    $this->captcha['letters'][$i]['ink_colors']['blue']
+                );
             }
 
             //add character
-            imagettftext($this->image, $this->captcha['letters'][$i]['size'], $this->captcha['letters'][$i]['rotation'], $this->captcha['letters'][$i]['x_coord'], $this->captcha['letters'][$i]['y_coord'], $ink, $this->captcha['letters'][$i]['font_path'], $this->captcha['letters'][$i]['char']);
+            imagettftext(
+                $this->image,
+                $this->captcha['letters'][$i]['size'],
+                $this->captcha['letters'][$i]['rotation'],
+                $this->captcha['letters'][$i]['x_coord'],
+                $this->captcha['letters'][$i]['y_coord'],
+                $ink,
+                $this->captcha['letters'][$i]['font_path'],
+                $this->captcha['letters'][$i]['char']
+            );
             //char added :)
         }
 
@@ -693,12 +791,17 @@ class Captcha {
 
     /**
      * Defines the brush used on the $image attribute
-     * 
+     *
      * @return bool Always true
      */
     private function setBrush()
     {
-        $noise_color = imagecolorallocate($this->image, $this->captcha['noise_color']['red'], $this->captcha['noise_color']['green'], $this->captcha['noise_color']['blue']);
+        $noise_color = imagecolorallocate(
+            $this->image,
+            $this->captcha['noise_color']['red'],
+            $this->captcha['noise_color']['green'],
+            $this->captcha['noise_color']['blue']
+        );
         if ($this->config['brush_size'] && $this->config['brush_size'] > 1 && function_exists('imagesetbrush')) {
             $brush = imagecreatetruecolor($this->config['brush_size'], $this->config['brush_size']);
             imagefill($brush, 0, 0, $noise_color);
@@ -721,6 +824,7 @@ class Captcha {
     {
         if (isset($this->captcha['brush']) && !empty($this->captcha['brush'])) {
             imagedestroy($this->captcha['brush']);
+
             return true;
         } else {
             return false;
@@ -729,21 +833,27 @@ class Captcha {
 
     /**
      * Refreshes the captcha noise parameters if the random option is selected
-     * 
+     *
      * @return bool If changed, returns true
      */
     private function refreshNoiseColor()
     {
         if ($this->config['noise_color'] != 1 && $this->config['noise_color'] != 2) {
-            $this->captcha['noise_color'] = array('red' => rand(0, 255), 'green' => rand(0, 255), 'blue' => rand(0, 255));
+            $this->captcha['noise_color'] = array(
+                'red' => rand(0, 255),
+                'green' => rand(0, 255),
+                'blue' => rand(0, 255)
+            );
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Refreshes the noise and makes it into a brush for direct use
-     * 
+     *
      * @return bool Always true
      */
     private function getNoiseBrush()
@@ -759,26 +869,33 @@ class Captcha {
                 //no need to do anything (color not updated and brush set)
             }
         }
+
         return $this->captcha['noise_brush'];
     }
 
     /**
      * Adds a border around the image
-     * 
+     *
      * @return bool Always true
      */
     private function addBorder()
     {
         if ($this->config['bg_border']) {
-            $border_color = imagecolorallocate($this->image, ($this->config['bg_red'] * 3 + $this->config['char_red']) / 4, ($this->config['bg_green'] * 3 + $this->config['char_green']) / 4, ($this->config['bg_blue'] * 3 + $this->config['char_blue']) / 4);
+            $border_color = imagecolorallocate(
+                $this->image,
+                ($this->config['bg_red'] * 3 + $this->config['char_red']) / 4,
+                ($this->config['bg_green'] * 3 + $this->config['char_green']) / 4,
+                ($this->config['bg_blue'] * 3 + $this->config['char_blue']) / 4
+            );
             imagerectangle($this->image, 0, 0, $this->config['width'] - 1, $this->config['height'] - 1, $border_color);
         }
+
         return true;
     }
 
     /**
      * Aplies effects to the image
-     * 
+     *
      * @return bool Always true
      */
     private function addEffect()
@@ -791,12 +908,13 @@ class Captcha {
                 imagefilter($this->image, IMG_FILTER_GAUSSIAN_BLUR);
             }
         }
+
         return true;
     }
 
     /**
      * Saves the captcha word into the user session
-     * 
+     *
      * @return bool Always true
      */
     private function setSessionAttributes()
@@ -817,21 +935,30 @@ class Captcha {
 
     private function testQueries()
     {
-        if ($this->session->get('innocead.captcha.queries') == '' || $this->session->get('innocead.captcha.queries') == 0) {
+        if ($this->session->get('innocead.captcha.queries') == '' || $this->session->get(
+            'innocead.captcha.queries'
+        ) == 0
+        ) {
             $this->session->set('innocead.captcha.queries', 1);
+
             return true;
         } elseif ($this->session->get('innocead.captcha.queries') >= $this->config['max_refresh']) {
             return false;
         } else {
             $this->session->set('innocead.captcha.queries', $this->session->get('innocead.captcha.queries') + 1);
+
             return true;
         }
     }
 
     private function testLastRequest()
     {
-        if ($this->session->get('innocead.captcha.last_request') == '' || $this->session->get('innocead.captcha.last_request') == 0) {
+        if ($this->session->get('innocead.captcha.last_request') == '' || $this->session->get(
+            'innocead.captcha.last_request'
+        ) == 0
+        ) {
             $this->session->set('innocead.captcha.last_request', time());
+
             return true;
         } else {
             $delay = time() - $this->session->get('innocead.captcha.last_request');
@@ -839,6 +966,7 @@ class Captcha {
                 return false;
             } else {
                 $this->session->set('innocead.captcha.last_request', time());
+
                 return true;
             }
         }

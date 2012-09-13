@@ -1,6 +1,9 @@
 {% block innocead_captcha_widget %}
-{% spaceless %}
-    <img src="{{ path('innocead_captcha', {'random': random() }) }}" onclick="this.src='{{ path('innocead_captcha', {'random': '1' }) }}'+Math.round(Math.random(0)*10000000000)" width="{{ captcha_width }}" height="{{ captcha_height }}" alt="{{ captcha_alt|trans({}, "validators") }}" title="{{ captcha_alt|trans({}, "validators") }}" />
-    {{ form_widget(form) }}
-{% endspaceless %}
+    {% spaceless %}
+        <img src="{{ path('innocead_captcha', {'random': random() }) }}"
+             onclick="this.src='{{ path('innocead_captcha', {'random': '1' }) }}'+Math.round(Math.random(0)*10000000000)"
+             width="{{ captcha_width }}" height="{{ captcha_height }}" alt="{{ captcha_alt|trans({}, "validators") }}"
+             title="{{ captcha_alt|trans({}, "validators") }}"/>
+        {{ form_widget(form) }}
+    {% endspaceless %}
 {% endblock %}
