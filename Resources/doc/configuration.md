@@ -7,7 +7,7 @@ There's easy way to configure captcha - just add `innocead_captcha` to `config.y
 ``` yaml
 innocead_captcha:
     width: 100
-    heigth: 20
+    height: 20
     max_chars: 4
     min_chars: 3
     char_max_size: 14
@@ -27,7 +27,7 @@ innocead_captcha:
     noise_on_top: false
     noise_color: 3                           # (1 - color of the writing, 2 - color of the background, 3 - random color)
     brush_size: 1                            # brush noise size
-    bg_transparen: true                      # transpended background
+    bg_transparent: true                     # transparent background
     bg_red: 238                              # used if background is not transparen 
     bg_green: 255
     bg_blue: 255
