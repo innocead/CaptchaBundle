@@ -2,16 +2,10 @@
 
 ***Using Composer***
 
-Add the following to the "require" section of your `composer.json` file:
-
-```
-    "innocead/captcha-bundle": "dev-master"
-```
-
-And update your dependencies
+Use composer require to get the recent version.
 
 ``` bash
-$ php composer.phar update innocead/captcha-bundle
+$ php composer.phar require innocead/captcha-bundle
 ```
 
 Enable the bundle:
